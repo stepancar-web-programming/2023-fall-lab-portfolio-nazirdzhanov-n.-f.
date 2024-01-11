@@ -1,1 +1,1 @@
-Для запуска - npm start
+https://nekruz03.github.io/
