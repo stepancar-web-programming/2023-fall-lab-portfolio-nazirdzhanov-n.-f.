@@ -129,6 +129,7 @@ export default function TestimonialsSection() {
             role="button"
             tabIndex={0}
             onKeyDown={handlePrev}
+            aria-label="Previous Slide"
           >
             <MdArrowBack />
           </div>
@@ -138,6 +139,7 @@ export default function TestimonialsSection() {
             role="button"
             tabIndex={0}
             onKeyDown={handleNext}
+            aria-label="Next Slide"
           >
             <MdArrowForward />
           </div>

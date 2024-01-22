@@ -97,6 +97,7 @@ export default function NavMenu() {
         role="button"
         onKeyDown={() => setShowNav(!showNav)}
         tabIndex={0}
+        aria-label={showNav ? 'Close Menu' : 'Open Menu'}
       >
         <MdMenu />
       </div>
@@ -108,6 +109,7 @@ export default function NavMenu() {
           role="button"
           onKeyDown={() => setShowNav(!showNav)}
           tabIndex={0}
+          aria-label="Close Menu"
         >
           <MdClose />
         </div>

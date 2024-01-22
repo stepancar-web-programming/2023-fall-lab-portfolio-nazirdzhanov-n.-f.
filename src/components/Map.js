@@ -1,66 +1,184 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import MapImg from '../assets/images/map.png';
-import PText from './PText';
+import { MdClose, MdMenu } from 'react-icons/md';
 
-const MapStyles = styled.div`
-  background: url(${MapImg}) no-repeat;
-  background-position: center;
-  background-size: cover;
-  min-height: 400px;
-  .container {
-    position: relative;
-    min-height: 400px;
+const NavStyles = styled.nav`
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem 0;
+  background: var(--dark-bg);
+
+  ul {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 90%;
+    text-align: center;
+
+    li {
+      display: inline-block;
+      border-radius: 8px;
+      transition: 0.3s ease background-color;
+
+      &:hover {
+        background-color: var(--deep-dark);
+      }
+    }
+
+    a {
+      display: inline-block;
+      font-family: 'RobotoMono Regular';
+      padding: 1rem 2rem;
+      font-size: 2rem;
+      color: var(--gray-1);
+      outline: none;
+
+      &:focus-visible {
+        outline: 2px solid var(--white);
+      }
+    }
+
+    .active {
+      color: var(--white);
+    }
   }
-  .map__card {
+
+  .mobile-menu-icon {
     position: absolute;
-    right: 10%;
-    bottom: 10%;
-    padding: 2rem;
-    background: var(--deep-dark);
-    width: 100%;
-    max-width: 300px;
-    border-radius: 12px;
+    right: 1rem;
+    top: 1rem;
+    width: 4rem;
+    cursor: pointer;
+    display: none;
+    outline: none;
+
+    * {
+      pointer-events: none;
+    }
   }
-  .map__card__heading {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+
+  .navItems .closeNavIcon {
+    display: none;
   }
-  .map__card__link {
-    display: inline-block;
-    font-size: 1.6rem;
-    margin-top: 3rem;
-    text-decoration: underline;
-  }
+
   @media only screen and (max-width: 768px) {
-    background-position: 80% center;
-  }
-  @media only screen and (max-width: 400px) {
-    .map__card {
-      max-width: none;
-      right: auto;
+    padding: 0;
+
+    .hide-item {
+      transform: translateY(calc(-100% - var(--top)));
+    }
+
+    .mobile-menu-icon {
+      display: block;
+    }
+
+    .navItems {
+      --top: 1rem;
+      transition: 0.3s ease transform;
+      background-color: var(--deep-dark);
+      padding: 2rem;
+      width: 90%;
+      max-width: 300px;
+      border-radius: 12px;
+      position: absolute;
+      right: 1rem;
+      top: var(--top);
+
+      .closeNavIcon {
+        display: block;
+        width: 3rem;
+        margin: 0 0 0 auto;
+        cursor: pointer;
+
+        * {
+          pointer-events: none;
+        }
+      }
+
+      li {
+        display: block;
+        margin-bottom: 1rem;
+      }
     }
   }
 `;
 
-export default function Map() {
+export default function NavMenu() {
+  const [showNav, setShowNav] = useState(false);
+
   return (
-    <MapStyles>
-      <div className="container">
-        <div className="map__card">
-          <h3 className="map__card__heading">Here is me</h3>
-          <PText>GEC circle, Saint - Petersburg, Russia</PText>
-          <a
-            className="map__card__link"
-            href="https://www.google.com/maps/place/%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3/@59.9387695,29.4353772,9z/data=!3m1!4b1!4m6!3m5!1s0x4696378cc74a65ed:0x6dc7673fab848eff!8m2!3d59.9310584!4d30.3609096!16zL20vMDZwcjY?entry=ttu"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Open in google map
-          </a>
-        </div>
+    <NavStyles>
+      <div
+        className="mobile-menu-icon"
+        onClick={() => setShowNav(!showNav)}
+        role="button"
+        aria-label="Toggle Menu"
+        onKeyDown={() => setShowNav(!showNav)}
+        tabIndex={0}
+      >
+        <MdMenu />
       </div>
-      {/* <img src={MapImg} alt="Map" /> */}
-    </MapStyles>
+
+      <ul className={!showNav ? 'navItems hide-item' : 'navItems'}>
+        <div
+          className="closeNavIcon"
+          onClick={() => setShowNav(!showNav)}
+          role="button"
+          aria-label="Close Menu"
+          onKeyDown={() => setShowNav(!showNav)}
+          tabIndex={0}
+        >
+          <MdClose />
+        </div>
+        <li>
+          <NavLink
+            to="/"
+            exact
+            onClick={() => setShowNav(!showNav)}
+            role="button"
+            onKeyDown={() => setShowNav(!showNav)}
+            tabIndex={0}
+          >
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/about"
+            onClick={() => setShowNav(!showNav)}
+            role="button"
+            onKeyDown={() => setShowNav(!showNav)}
+            tabIndex={0}
+          >
+            About
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/projects"
+            onClick={() => setShowNav(!showNav)}
+            role="button"
+            onKeyDown={() => setShowNav(!showNav)}
+            tabIndex={0}
+          >
+            Projects
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/contact"
+            onClick={() => setShowNav(!showNav)}
+            role="button"
+            onKeyDown={() => setShowNav(!showNav)}
+            tabIndex={0}
+          >
+            Contact
+          </NavLink>
+        </li>
+      </ul>
+    </NavStyles>
   );
 }
